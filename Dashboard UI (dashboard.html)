@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <h1>Dashboard</h1>
+</header>
+
+<section>
+  <h2>Create New Content Brief</h2>
+
+  <input type="text" placeholder="Enter Keyword">
+  <select>
+    <option>Review</option>
+    <option>Comparison</option>
+    <option>Guide</option>
+  </select>
+
+  <br><br>
+  <button class="btn">Generate</button>
+
+</section>
+
+</body>
+</html>
