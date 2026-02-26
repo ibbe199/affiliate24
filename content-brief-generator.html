@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Content Brief Generator</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+.generator-box {
+  max-width: 800px;
+  margin: 60px auto;
+  background: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+}
+
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0 20px 0;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+}
+
+.result-box {
+  background: #f4f6f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-top: 30px;
+  white-space: pre-line;
+}
+</style>
+
+</head>
+
+<body>
+
+<header class="hero">
+  <h1>AI Content Brief Generator</h1>
+  <p>Create SEO article outlines in seconds</p>
+</header>
+
+<section class="generator-box">
+
+<label>Enter Target Keyword</label>
+<input type="text" id="keyword" placeholder="e.g. Jasper pricing">
+
+<label>Select Article Type</label>
+<select id="type">
+  <option value="review">Review</option>
+  <option value="comparison">Comparison</option>
+  <option value="guide">Guide</option>
+</select>
+
+<button class="btn" onclick="generateBrief()">Generate Brief</button>
+
+<div id="result" class="result-box"></div>
+
+</section>
+
+<script>
+function generateBrief() {
+  var keyword = document.getElementById("keyword").value;
+  var type = document.getElementById("type").value;
+
+  if(keyword === "") {
+    alert("Please enter a keyword");
+    return;
+  }
+
+  var brief = "SEO CONTENT BRIEF\n\n";
+  brief += "Primary Keyword: " + keyword + "\n\n";
+
+  brief += "Suggested H1:\n";
+  brief += keyword + " (Complete " + type + " 2026)\n\n";
+
+  brief += "Suggested H2 Structure:\n";
+  brief += "- What is " + keyword + "?\n";
+  brief += "- Key Features\n";
+  brief += "- Pricing Breakdown\n";
+  brief += "- Pros & Cons\n";
+  brief += "- " + keyword + " vs Competitors\n";
+  brief += "- Is " + keyword + " Worth It?\n\n";
+
+  brief += "FAQ Ideas:\n";
+  brief += "- Is " + keyword + " worth it?\n";
+  brief += "- How much does " + keyword + " cost?\n";
+  brief += "- Best alternatives to " + keyword + "?\n\n";
+
+  brief += "CTA Suggestions:\n";
+  brief += "- Start Free Trial\n";
+  brief += "- Check Latest Pricing\n";
+  brief += "- Compare Plans Now\n";
+
+  document.getElementById("result").innerText = brief;
+}
+</script>
+
+</body>
+</html>
