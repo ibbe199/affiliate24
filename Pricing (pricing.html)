@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Pricing - Affiliate24</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <h1>Simple Pricing</h1>
+</header>
+
+<section>
+  <div class="card-container">
+
+    <div class="card">
+      <h3>Free</h3>
+      <p>$0 / month</p>
+      <p>3 briefs per day</p>
+      <a href="login.html" class="btn">Start Free</a>
+    </div>
+
+    <div class="card">
+      <h3>Pro</h3>
+      <p>$19 / month</p>
+      <p>Unlimited briefs</p>
+      <p>Advanced SEO suggestions</p>
+      <a href="login.html" class="btn">Upgrade</a>
+    </div>
+
+  </div>
+</section>
+
+</body>
+</html>
