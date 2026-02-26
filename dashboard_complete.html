@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لوحة تحكم وكيل التسويق - النسخة المحسنة</title>
+    
+    <!-- إضافة مكتبة Chart.js للرسوم البيانية -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Font Awesome للأيقونات (اختياري) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: #f0f2f5;
+        }
+
+        /* القائمة العلوية */
+        .navbar {
+            background: white;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1a73e8;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+        }
+
+        .nav-links a:hover {
+            color: #1a73e8;
+        }
+
+        .nav-links a.active {
+            color: #1a73e8;
+            border-bottom: 2px solid #1a73e8;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #1a73e8;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        /* المحتوى الرئيسي */
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        /* بطاقات المؤشرات */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .kpi-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .kpi-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 100%;
+            height: 4px;
+        }
+
+        .card-1::before { background: #1a73e8; }
+        .card-2::before { background: #34a853; }
+        .card-3::before { background: #f9ab00; }
+        .card-4::before { background: #ea4335; }
+
+        .kpi-title {
+            color: #666;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .kpi-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+            animation: countUp 0.5s ease-out;
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .kpi-change {
+            font-size: 0.85rem;
+            color: #4caf50;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .kpi-change.negative {
+            color: #f44336;
+        }
+
+        /* حاوية الرسوم البيانية */
+        .charts-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .chart-title {
+            font-size: 1.1rem;
+            color: #333;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .chart-period {
+            color: #1a73e8;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 0.25rem 0.5rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+
+        .chart-period:hover {
+            background: #e8f0fe;
+        }
+
+        /* قسم الأهداف */
+        .goal-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .goal-progress {
+            height: 12px;
+            background: #eee;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .goal-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1a73e8, #34a853);
+            border-radius: 6px;
+            transition: width 0.3s ease;
+        }
+
+        .goal-details {
+            display: flex;
+            justify-content: space-between;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* جدول الحملات */
+        .campaigns-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            font-size: 1.2rem;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .add-campaign {
+            background: #1a73e8;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: background 0.3s;
+        }
+
+        .add-campaign:hover {
+            background: #1557b0;
+        }
+
+        .campaigns-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .campaigns-table th {
+            text-align: right;
+            padding: 1rem;
+            color: #666;
+            font-weight: 500;
+            border-bottom: 2px solid #eee;
+        }
+
+        .campaigns-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #eee;
+        }
+
+        .campaigns-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .campaign-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #e6f4ea;
+            color: #34a853;
+        }
+
+        .status-paused {
+            background: #feeae6;
+            color: #ea4335;
+        }
+
+        .campaign-action {
+            background: none;
+            border: 1px solid #1a73e8;
+            color: #1a73e8;
+            padding: 0.25rem 0.75rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .campaign-action:hover {
+            background: #1a73e8;
+            color: white;
+        }
+
+        /* النشاطات الأخيرة */
+        .activity-section {
+            background: white;
+            border-radius: 15px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .activity-list {
+            list-style: none;
+        }
+
+        .activity-item {
+            padding: 1rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+        }
+
+        .activity-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: #e8f0fe;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #1a73e8;
+            font-size: 1.2rem;
+        }
+
+        .activity-content {
+            flex: 1;
+        }
+
+        .activity-text {
+            color: #333;
+            margin-bottom: 0.25rem;
+        }
+
+        .activity-time {
+            color: #999;
+            font-size: 0.8rem;
+        }
+
+        .load-more {
+            text-align: center;
+            margin: 1rem 0 0;
+        }
+
+        .load-more-btn {
+            background: none;
+            border: 1px solid #1a73e8;
+            color: #1a73e8;
+            padding: 0.5rem 2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .load-more-btn:hover {
+            background: #1a73e8;
+            color: white;
+        }
+
+        /* مؤشر حي */
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #34a853;
+        }
+
+        .live-dot {
+            width: 10px;
+            height: 10px;
+            background: #34a853;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        /* تذييل الصفحة */
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* التجاوب مع الشاشات الصغيرة */
+        @media (max-width: 1024px) {
+            .kpi-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .charts-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .kpi-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .campaigns-table {
+                display: block;
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- القائمة العلوية -->
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fas fa-robot"></i>
+            Affiliate Agent
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active"><i class="fas fa-chart-pie"></i> Dashboard</a>
+            <a href="#"><i class="fas fa-bullhorn"></i> Campaigns</a>
+            <a href="#"><i class="fas fa-chart-line"></i> Analytics</a>
+            <a href="#"><i class="fas fa-cog"></i> Settings</a>
+        </div>
+        <div class="user-menu">
+            <span>مرحباً، أحمد</span>
+            <div class="user-avatar">أ</div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- بطاقات المؤشرات -->
+        <div class="kpi-grid">
+            <div class="kpi-card card-1">
+                <div class="kpi-title">
+                    <span>إجمالي النقرات</span>
+                    <i class="fas fa-mouse-pointer"></i>
+                </div>
+                <div class="kpi-value" id="totalClicks">1,234</div>
+                <div class="kpi-change">
+                    <i class="fas fa-arrow-up"></i>
+                    12% عن الأمس
+                </div>
+            </div>
+            
+            <div class="kpi-card card-2">
+                <div class="kpi-title">
+                    <span>التحويلات</span>
+                    <i class="fas fa-shopping-cart"></i>
+                </div>
+                <div class="kpi-value" id="conversions">56</div>
+                <div class="kpi-change">
+                    <i class="fas fa-arrow-up"></i>
+                    8% عن الأمس
+                </div>
+            </div>
+            
+            <div class="kpi-card card-3">
+                <div class="kpi-title">
+                    <span>العمولات</span>
+                    <i class="fas fa-dollar-sign"></i>
+                </div>
+                <div class="kpi-value" id="commission">$789.00</div>
+                <div class="kpi-change">
+                    <i class="fas fa-arrow-up"></i>
+                    15% عن الأمس
+                </div>
+            </div>
+            
+            <div class="kpi-card card-4">
+                <div class="kpi-title">
+                    <span>نسبة التحول</span>
+                    <i class="fas fa-percentage"></i>
+                </div>
+                <div class="kpi-value" id="conversionRate">4.5%</div>
+                <div class="kpi-change negative">
+                    <i class="fas fa-arrow-down"></i>
+                    2% عن الأمس
+                </div>
+            </div>
+        </div>
+
+        <!-- حاوية الرسوم البيانية -->
+        <div class="charts-container">
+            <div class="chart-card">
+                <div class="chart-title">
+                    <span><i class="fas fa-chart-line" style="color: #1a73e8;"></i> تطور النقرات</span>
+                    <span class="chart-period" onclick="changePeriod()">
+                        آخر 7 أيام <i class="fas fa-chevron-down"></i>
+                    </span>
+                </div>
+                <canvas id="clicksChart" style="width:100%; height:250px;"></canvas>
+            </div>
+            
+            <div class="chart-card">
+                <div class="chart-title">
+                    <span><i class="fas fa-chart-pie" style="color: #34a853;"></i> توزيع المنصات</span>
+                </div>
+                <canvas id="platformsChart" style="width:100%; height:250px;"></canvas>
+            </div>
+        </div>
+
+        <!-- قسم الأهداف -->
+        <div class="goal-section">
+            <div class="goal-header">
+                <span><i class="fas fa-bullseye" style="color: #1a73e8;"></i> الهدف الشهري</span>
+                <span><span id="currentEarnings">789</span>$ / <span id="monthlyGoal">2,000</span>$</span>
+            </div>
+            <div class="goal-progress">
+                <div class="goal-fill" id="goalFill" style="width: 39.45%;"></div>
+            </div>
+            <div class="goal-details">
+                <span><i class="far fa-clock"></i> متبقي: <span id="remainingGoal">1,211</span>$</span>
+                <span><i class="far fa-calendar"></i> الأيام المتبقية: <span id="daysLeft">15</span> يوم</span>
+            </div>
+        </div>
+
+        <!-- جدول الحملات -->
+        <div class="campaigns-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fas fa-bullhorn" style="color: #1a73e8;"></i>
+                    الحملات النشطة
+                </div>
+                <button class="add-campaign" onclick="addNewCampaign()">
+                    <i class="fas fa-plus"></i>
+                    حملة جديدة
+                </button>
+            </div>
+            
+            <table class="campaigns-table">
+                <thead>
+                    <tr>
+                        <th>اسم الحملة</th>
+                        <th>النقرات</th>
+                        <th>التحويلات</th>
+                        <th>الأرباح</th>
+                        <th>نسبة التحول</th>
+                        <th>الحالة</th>
+                        <th>الإجراء</th>
+                    </tr>
+                </thead>
+                <tbody id="campaignsTableBody">
+                    <tr>
+                        <td><i class="fas fa-tag" style="color: #1a73e8;"></i> Summer Sale 2026</td>
+                        <td>1,234</td>
+                        <td>56</td>
+                        <td>$789.00</td>
+                        <td>4.5%</td>
+                        <td><span class="campaign-status status-active">نشط</span></td>
+                        <td><button class="campaign-action" onclick="toggleCampaign('summer')">إيقاف</button></td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-tag" style="color: #e4405f;"></i> Winter Collection</td>
+                        <td>892</td>
+                        <td>34</td>
+                        <td>$456.50</td>
+                        <td>3.8%</td>
+                        <td><span class="campaign-status status-active">نشط</span></td>
+                        <td><button class="campaign-action" onclick="toggleCampaign('winter')">إيقاف</button></td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-tag" style="color: #f9ab00;"></i> Tech Gadgets</td>
+                        <td>2,145</td>
+                        <td>89</td>
+                        <td>$1,234.75</td>
+                        <td>4.1%</td>
+                        <td><span class="campaign-status status-paused">متوقف</span></td>
+                        <td><button class="campaign-action" onclick="toggleCampaign('tech')">تشغيل</button></td>
+                    </tr>
+                    <tr>
+                        <td><i class="fas fa-tag" style="color: #34a853;"></i> Fitness Gear</td>
+                        <td>567</td>
+                        <td>23</td>
+                        <td>$345.25</td>
+                        <td>4.0%</td>
+                        <td><span class="campaign-status status-active">نشط</span></td>
+                        <td><button class="campaign-action" onclick="toggleCampaign('fitness')">إيقاف</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- النشاطات الأخيرة -->
+        <div class="activity-section">
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="fas fa-history" style="color: #1a73e8;"></i>
+                    النشاطات الأخيرة
+                </div>
+                <div>
+                    <select onchange="filterActivities(this.value)" style="padding: 0.25rem; border-radius: 5px; border: 1px solid #ddd;">
+                        <option value="all">كل النشاطات</option>
+                        <option value="clicks">نقرات</option>
+                        <option value="conversions">تحويلات</option>
+                        <option value="campaigns">حملات</option>
+                    </select>
+                </div>
+            </div>
+            
+            <ul class="activity-list" id="activityList">
+                <li class="activity-item">
+                    <div class="activity-icon"><i class="fas fa-mouse-pointer"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">نقرة جديدة من حملة "Summer Sale" - المعرف: xyz-123</div>
+                        <div class="activity-time"><i class="far fa-clock"></i> منذ 5 دقائق</div>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon"><i class="fas fa-dollar-sign"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">تحويل جديد: $45.00 عمولة</div>
+                        <div class="activity-time"><i class="far fa-clock"></i> منذ 15 دقيقة</div>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon"><i class="fas fa-chart-bar"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">حملة "Winter Collection" وصلت 1000 نقرة</div>
+                        <div class="activity-time"><i class="far fa-clock"></i> منذ ساعة</div>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon"><i class="fas fa-link"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">تم إنشاء رابط تابع جديد للمنتج X</div>
+                        <div class="activity-time"><i class="far fa-clock"></i> منذ ساعتين</div>
+                    </div>
+                </li>
+                <li class="activity-item">
+                    <div class="activity-icon"><i class="fas fa-trophy"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">حققت هدف 500$ لهذا الشهر!</div>
+                        <div class="activity-time"><i class="far fa-clock"></i> منذ 3 ساعات</div>
+                    </div>
+                </li>
+            </ul>
+            
+            <div class="load-more">
+                <button class="load-more-btn" onclick="loadMoreActivities()">
+                    <i class="fas fa-sync-alt"></i> تحميل المزيد
+                </button>
+            </div>
+        </div>
+
+        <!-- مؤشر حي -->
+        <div class="live-indicator">
+            <span class="live-dot"></span>
+            <span>يتم التحديث مباشرة - آخر تحديث: <span id="lastUpdate">الآن</span></span>
+        </div>
+    </div>
+
+    <!-- تذييل الصفحة -->
+    <div class="footer">
+        <p>© 2026 Affiliate Agent - جميع الحقوق محفوظة</p>
+        <p style="margin-top: 0.5rem; font-size: 0.8rem;">آخر مزامنة مع الوكيل: <span id="lastSync">منذ دقيقة</span></p>
+    </div>
+
+    <script>
+        // رسم بياني لتطور النقرات
+        const ctx1 = document.getElementById('clicksChart').getContext('2d');
+        const clicksChart = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['السبت', 'الأحد', 'الإثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
+                datasets: [{
+                    label: 'النقرات',
+                    data: [120, 145, 132, 178, 190, 210, 234],
+                    borderColor: '#1a73e8',
+                    backgroundColor: 'rgba(26, 115, 232, 0.1)',
+                    tension: 0.4,
+                    fill: true,
+                    pointBackgroundColor: '#1a73e8',
+                    pointBorderColor: 'white',
+                    pointBorderWidth: 2,
+                    pointRadius: 4,
+                    pointHoverRadius: 6
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false },
+                    tooltip: { enabled: true }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: { color: '#f0f0f0' }
+                    }
+                }
+            }
+        });
+
+        // رسم بياني دائري للمنصات
+        const ctx2 = document.getElementById('platformsChart').getContext('2d');
+        const platformsChart = new Chart(ctx2, {
+            type: 'doughnut',
+            data: {
+                labels: ['Instagram', 'TikTok', 'YouTube', 'Twitter'],
+                datasets: [{
+                    data: [45, 30, 25, 10],
+                    backgroundColor: ['#e4405f', '#000000', '#ff0000', '#1da1f2'],
+                    borderWidth: 0,
+                    hoverOffset: 5
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { 
+                        position: 'bottom',
+                        labels: { usePointStyle: true, padding: 20 }
+                    }
+                },
+                cutout: '60%'
+            }
+        });
+
+        // دوال التفاعل
+        function changePeriod() {
+            // تغيير فترة الرسم البياني
+            const periods = ['آخر 7 أيام', 'آخر 30 يوم', 'آخر 3 أشهر', 'آخر سنة'];
+            const current = document.querySelector('.chart-period').textContent.trim();
+            const nextIndex = (periods.indexOf(current) + 1) % periods.length;
+            document.querySelector('.chart-period').innerHTML = periods[nextIndex] + ' <i class="fas fa-chevron-down"></i>';
+            
+            // تحديث البيانات (محاكاة)
+            const newData = [150, 170, 190, 210, 230, 250, 270];
+            clicksChart.data.datasets[0].data = newData;
+            clicksChart.update();
+        }
+
+        function toggleCampaign(campaignId) {
+            const button = event.target;
+            if (button.textContent === 'إيقاف') {
+                button.textContent = 'تشغيل';
+                button.parentElement.previousElementSibling.innerHTML = '<span class="campaign-status status-paused">متوقف</span>';
+            } else {
+                button.textContent = 'إيقاف';
+                button.parentElement.previousElementSibling.innerHTML = '<span class="campaign-status status-active">نشط</span>';
+            }
+            
+            // تسجيل الإجراء
+            addActivity('toggle', `تم تغيير حالة الحملة ${campaignId}`);
+        }
+
+        function addNewCampaign() {
+            const campaignName = prompt('أدخل اسم الحملة الجديدة:');
+            if (campaignName) {
+                const tableBody = document.getElementById('campaignsTableBody');
+                const newRow = document.createElement('tr');
+                newRow.innerHTML = `
+                    <td><i class="fas fa-tag" style="color: #1a73e8;"></i> ${campaignName}</td>
+                    <td>0</td>
+                    <td>0</td>
+                    <td>$0.00</td>
+                    <td>0%</td>
+                    <td><span class="campaign-status status-active">نشط</span></td>
+                    <td><button class="campaign-action" onclick="toggleCampaign('new')">إيقاف</button></td>
+                `;
+                tableBody.appendChild(newRow);
+                
+                addActivity('new', `تم إنشاء حملة جديدة: ${campaignName}`);
+            }
+        }
+
+        function filterActivities(filter) {
+            const activities = document.querySelectorAll('.activity-item');
+            activities.forEach(item => {
+                if (filter === 'all') {
+                    item.style.display = 'flex';
+                } else {
+                    const icon = item.querySelector('.activity-icon i').className;
+                    if (filter === 'clicks' && icon.includes('mouse-pointer')) {
+                        item.style.display = 'flex';
+                    } else if (filter === 'conversions' && icon.includes('dollar')) {
+                        item.style.display = 'flex';
+                    } else if (filter === 'campaigns' && (icon.includes('chart-bar') || icon.includes('tag'))) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                }
+            });
+        }
+
+        function loadMoreActivities() {
+            const activityList = document.getElementById('activityList');
+            
+            // إضافة نشاطات جديدة (محاكاة)
+            const newActivities = [
+                { icon: 'mouse-pointer', text: 'نقرة جديدة من حملة "Tech Gadgets"', time: 'منذ دقيقة' },
+                { icon: 'dollar-sign', text: 'تحويل جديد: $32.50 عمولة', time: 'منذ دقيقتين' },
+                { icon: 'chart-bar', text: 'حملة "Fitness Gear" وصلت 500 نقرة', time: 'منذ 3 دقائق' }
+            ];
+            
+            newActivities.forEach(act => {
+                const li = document.createElement('li');
+                li.className = 'activity-item';
+                li.innerHTML = `
+                    <div class="activity-icon"><i class="fas fa-${act.icon}"></i></div>
+                    <div class="activity-content">
+                        <div class="activity-text">${act.text}</div>
+                        <div class="activity-time"><i class="far fa-clock"></i> ${act.time}</div>
+                    </div>
+                `;
+                activityList.appendChild(li);
+            });
+            
+            // إظهار رسالة
+            alert('تم تحميل 3 نشاطات جديدة');
+        }
+
+        function addActivity(type, text) {
+            const activityList = document.getElementById('activityList');
+            const li = document.createElement('li');
+            li.className = 'activity-item';
+            
+            let icon = 'info-circle';
+            if (type === 'toggle') icon = 'toggle-on';
+            if (type === 'new') icon = 'plus-circle';
+            
+            li.innerHTML = `
+                <div class="activity-icon"><i class="fas fa-${icon}"></i></div>
+                <div class="activity-content">
+                    <div class="activity-text">${text}</div>
+                    <div class="activity-time"><i class="far fa-clock"></i> الآن</div>
+                </div>
+            `;
+            
+            activityList.insertBefore(li, activityList.firstChild);
+            
+            // تحديث المؤشرات
+            updateStats();
+        }
+
+        function updateStats() {
+            // تحديث المؤشرات بشكل عشوائي (محاكاة)
+            const clicks = document.getElementById('totalClicks');
+            const conversions = document.getElementById('conversions');
+            const commission = document.getElementById('commission');
+            const rate = document.getElementById('conversionRate');
+            
+            const newClicks = parseInt(clicks.textContent.replace(',', '')) + Math.floor(Math.random() * 10);
+            clicks.textContent = newClicks.toLocaleString();
+            
+            const newConversions = parseInt(conversions.textContent) + (Math.random() > 0.7 ? 1 : 0);
+            conversions.textContent = newConversions;
+            
+            const newCommission = parseFloat(commission.textContent.replace('$', '')) + (Math.random() * 10);
+            commission.textContent = '$' + newCommission.toFixed(2);
+            
+            const newRate = (newConversions / newClicks * 100).toFixed(1);
+            rate.textContent = newRate + '%';
+            
+   
+  // تحديث الأهداف
+            document.getElementById('currentEarnings').textContent = Math.floor(newCommission);
+            const remaining = 2000 - newCommission;
+            document.getElementById('remainingGoal').textContent = remaining.toFixed(0);
+            document.getElementById('goalFill').style.width = (newCommission / 2000 * 100).toFixed(2) + '%';
+            
+            // تحديث وقت آخر مزامنة
+            document.getElementById('lastSync').textContent = 'الآن';
+        }
+
+        // تحديث المؤشرات الحية كل 10 ثوانٍ
+        setInterval(() => {
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString('ar-EG');
+            updateStats();
+        }, 10000);
+
+        // تحديث وقت آخر مزامنة كل دقيقة
+        setInterval(() => {
+            document.getElementById('lastSync').textContent = 'منذ دقيقة';
+        }, 60000);
+
+        // إظهار رسالة ترحيب
+        console.log('✅ لوحة التحكم المحسنة جاهزة للعمل!');
+    </script>
+</body>
+</html>
+
+
+ على Windows: افتح المفكرة (Notepad)، الصق الكود، واحفظه باسم dashboard_complete.html
+
+على Mac: افتح TextEdit، اختر Format → Make Plain Text، الصق الكود، واحفظه      
+
+
