@@ -1,36 +1,71 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Pricing - Affiliate24</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Affiliate24 AI Pricing - Simple & Transparent</title>
+<meta name="description" content="Simple and transparent pricing for Affiliate24 AI Content Brief Pro. Start free or upgrade to unlimited access.">
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
+<nav class="navbar">
+  <div class="logo">Affiliate24</div>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="saas.html">Features</a></li>
+  </ul>
+</nav>
+
 <header class="hero">
-  <h1>Simple Pricing</h1>
+  <h1>Simple & Transparent Pricing</h1>
+  <p>No hidden fees. Cancel anytime.</p>
 </header>
 
 <section>
   <div class="card-container">
 
+    <!-- Free Plan -->
     <div class="card">
       <h3>Free</h3>
-      <p>$0 / month</p>
-      <p>3 briefs per day</p>
+      <h2>$0</h2>
+      <p>Perfect for testing</p>
+      <ul>
+        <li>3 briefs per day</li>
+        <li>Basic SEO structure</li>
+        <li>Email support</li>
+      </ul>
       <a href="login.html" class="btn">Start Free</a>
     </div>
 
-    <div class="card">
+    <!-- Pro Plan -->
+    <div class="card" style="border:2px solid #007bff;">
       <h3>Pro</h3>
-      <p>$19 / month</p>
-      <p>Unlimited briefs</p>
-      <p>Advanced SEO suggestions</p>
-      <a href="login.html" class="btn">Upgrade</a>
+      <h2>$19<span style="font-size:16px;">/month</span></h2>
+      <p>Best for serious creators</p>
+      <ul>
+        <li>Unlimited briefs</li>
+        <li>Advanced SEO suggestions</li>
+        <li>Priority support</li>
+        <li>Future AI upgrades</li>
+      </ul>
+      <a href="login.html" class="btn">Upgrade Now</a>
     </div>
 
   </div>
 </section>
+
+<section style="text-align:center; margin-top:50px;">
+  <h2>Who Is This For?</h2>
+  <p>Bloggers, affiliate marketers, agencies, and anyone serious about scaling SEO content production.</p>
+</section>
+
+<footer>
+  <div class="footer-bottom">
+    © 2026 Affiliate24. All rights reserved.
+  </div>
+</footer>
 
 </body>
 </html>
