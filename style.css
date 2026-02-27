@@ -135,3 +135,40 @@ footer {
     font-size: 28px;
   }
 }
+/* تحسين شكل الزر */
+.cta-button {
+    background-color: #28a745;
+    color: white;
+    padding: 12px 25px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    display: inline-block;
+    margin: 10px 0;
+    transition: background 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #218838;
+}
+
+/* تحسين الجدول ليكون متجاوباً مع الجوال */
+.table-container {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #f4f4f4;
+}
