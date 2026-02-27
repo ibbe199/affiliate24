@@ -1,174 +1,205 @@
+/* 1. RESET & BASE */
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-  font-family: Arial, sans-serif;
-  background: #f4f6f9;
-  color: #333;
-  line-height: 1.6;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: #f4f6f9;
+    color: #333;
+    line-height: 1.6;
 }
 
-/* HERO */
+/* 2. NAVIGATION (New) */
+nav {
+    background: white;
+    border-bottom: 1px solid #eee;
+    padding: 15px;
+    text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+nav a {
+    text-decoration: none;
+    color: #111827;
+    font-weight: bold;
+    margin: 0 15px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #2563eb;
+}
+
+/* 3. HERO SECTION */
 .hero {
-  background: #111827;
-  color: white;
-  text-align: center;
-  padding: 90px 20px;
+    background: #111827;
+    color: white;
+    text-align: center;
+    padding: 90px 20px;
 }
 
 .hero h1 {
-  font-size: 40px;
-  margin-bottom: 15px;
+    font-size: 40px;
+    margin-bottom: 15px;
 }
 
 .hero p {
-  margin-bottom: 25px;
-  font-size: 18px;
+    margin-bottom: 25px;
+    font-size: 18px;
+    opacity: 0.9;
 }
 
-/* BUTTON */
+/* 4. BUTTONS */
+.btn, .cta-button {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+    border: none;
+}
+
+/* Blue Button */
 .btn {
-  display: inline-block;
-  background: #2563eb;
-  color: white;
-  padding: 12px 25px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  transition: 0.3s;
+    background: #2563eb;
+    color: white;
 }
 
 .btn:hover {
-  background: #1e40af;
+    background: #1e40af;
+    transform: translateY(-2px);
 }
 
-/* SECTIONS */
-section {
-  padding: 70px 20px;
-  text-align: center;
-}
-
-/* CARDS */
-.card-container {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  flex-wrap: wrap;
-  margin-top: 40px;
-}
-
-.card {
-  background: white;
-  padding: 30px;
-  width: 300px;
-  border-radius: 12px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-}
-
-/* TABLE */
-table {
-  width: 90%;
-  max-width: 1000px;
-  margin: 40px auto;
-  border-collapse: collapse;
-  background: white;
-}
-
-th, td {
-  padding: 15px;
-  border-bottom: 1px solid #eee;
-}
-
-th {
-  background: #111827;
-  color: white;
-}
-
-/* FOOTER */
-footer {
-  background: #111827;
-  color: white;
-  padding: 60px 20px;
-}
-
-.footer-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  max-width: 1100px;
-  margin: auto;
-  gap: 40px;
-}
-
-.footer-container h3 {
-  margin-bottom: 10px;
-}
-
-.footer-container a {
-  color: #3b82f6;
-  text-decoration: none;
-}
-
-.footer-bottom {
-  text-align: center;
-  margin-top: 40px;
-  font-size: 14px;
-  color: #aaa;
-}
-
-/* RESPONSIVE */
-@media (max-width: 768px) {
-  .card-container {
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-container {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .hero h1 {
-    font-size: 28px;
-  }
-}
-/* تحسين شكل الزر */
+/* Green Affiliate Button */
 .cta-button {
     background-color: #28a745;
     color: white;
-    padding: 12px 25px;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    display: inline-block;
-    margin: 10px 0;
-    transition: background 0.3s;
 }
 
 .cta-button:hover {
     background-color: #218838;
+    transform: translateY(-2px);
 }
 
-/* تحسين الجدول ليكون متجاوباً مع الجوال */
+/* 5. CARDS SYSTEM */
+section {
+    padding: 70px 20px;
+    max-width: 1200px;
+    margin: auto;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 40px;
+}
+
+.card {
+    background: white;
+    padding: 30px;
+    width: 300px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+}
+
+/* 6. RESPONSIVE TABLES */
 .table-container {
     overflow-x: auto;
+    margin: 40px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    margin: 20px 0;
+    background: white;
+    min-width: 600px; /* لضمان عدم انضغاط الجدول في الجوال */
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 12px;
+    padding: 18px;
+    border-bottom: 1px solid #eee;
     text-align: center;
 }
 
 th {
-    background-color: #f4f4f4;
+    background: #111827;
+    color: white;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* 7. FOOTER */
+footer {
+    background: #111827;
+    color: white;
+    padding: 60px 20px;
+    margin-top: 50px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    max-width: 1100px;
+    margin: auto;
+    gap: 40px;
+}
+
+.footer-container a {
+    color: #3b82f6;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.footer-container a:hover {
+    text-decoration: underline;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #374151;
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+/* 8. MOBILE OPTIMIZATION */
+@media (max-width: 768px) {
+    .card-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero h1 {
+        font-size: 28px;
+    }
+
+    section {
+        padding: 40px 20px;
+    }
 }
