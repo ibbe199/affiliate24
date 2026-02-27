@@ -9,10 +9,21 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ✅ Root Route (يحل مشكلة Not Found)
+app.get("/", (req, res) => {
+  res.send("Affiliate24 API is running...");
+});
+
+// ✅ فحص إذا المفتاح غير موجود
+if (!process.env.OPENAI_API_KEY) {
+  console.warn("⚠️ OPENAI_API_KEY is missing!");
+}
+
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY
 });
 
+// ✅ Generate Brief Endpoint
 app.post("/generate-brief", async (req, res) => {
   try {
     const { keyword, type } = req.body;
@@ -24,7 +35,7 @@ app.post("/generate-brief", async (req, res) => {
     const prompt = `
 Create a detailed SEO content brief for:
 Keyword: ${keyword}
-Article Type: ${type}
+Article Type: ${type || "Review"}
 
 Include:
 - Optimized H1
@@ -42,7 +53,7 @@ Include:
     res.json({ result: response.choices[0].message.content });
 
   } catch (error) {
-    console.error(error);
+    console.error("❌ Error:", error.message);
     res.status(500).json({ error: "Error generating brief" });
   }
 });
@@ -50,5 +61,5 @@ Include:
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log("🚀 Server running on port " + PORT);
 });
