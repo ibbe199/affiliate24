@@ -17,6 +17,10 @@ app.post("/generate-brief", async (req, res) => {
   try {
     const { keyword, type } = req.body;
 
+    if (!keyword) {
+      return res.status(400).json({ error: "Keyword is required" });
+    }
+
     const prompt = `
 Create a detailed SEO content brief for:
 Keyword: ${keyword}
@@ -38,15 +42,13 @@ Include:
     res.json({ result: response.choices[0].message.content });
 
   } catch (error) {
+    console.error(error);
     res.status(500).json({ error: "Error generating brief" });
   }
 });
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
-  const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
-});
 });
