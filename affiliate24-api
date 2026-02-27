@@ -46,3 +46,15 @@ app.listen(3000, () => {
   console.log("Server running on port 3000");
 
 });
+{
+  "name": "affiliate24-api",
+  "type": "module",
+  "dependencies": {
+    "express": "^4.18.2",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "openai": "^4.0.0"
+  }
+}
+
+
