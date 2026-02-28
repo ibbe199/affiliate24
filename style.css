@@ -1,5 +1,5 @@
 /* ============================= */
-/* 1. RESET & GLOBAL SETTINGS   */
+/* 1. RESET & GLOBAL SETTINGS    */
 /* ============================= */
 
 * {
@@ -13,7 +13,7 @@ html {
 }
 
 body {
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     background: #f4f6f9;
     color: #1f2937;
     line-height: 1.7;
@@ -31,6 +31,7 @@ nav {
     position: sticky;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
 }
 
 nav a {
@@ -60,12 +61,16 @@ nav a:hover {
     font-size: 42px;
     margin-bottom: 15px;
     font-weight: 700;
+    letter-spacing: -0.5px;
 }
 
 .hero p {
     margin-bottom: 30px;
     font-size: 18px;
     opacity: 0.9;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* ============================= */
@@ -79,9 +84,10 @@ nav a:hover {
     border-radius: 8px;
     text-decoration: none;
     font-weight: bold;
-    transition: 0.3s ease;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     cursor: pointer;
     border: none;
+    text-align: center;
 }
 
 /* Primary Button */
@@ -93,9 +99,10 @@ nav a:hover {
 .btn:hover {
     background: #1e40af;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
 }
 
-/* Affiliate CTA Button */
+/* Affiliate CTA Button - Green for Success */
 .cta-button {
     background-color: #22c55e;
     color: white;
@@ -104,6 +111,7 @@ nav a:hover {
 .cta-button:hover {
     background-color: #16a34a;
     transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.2);
 }
 
 /* ============================= */
@@ -119,6 +127,7 @@ section {
 h2 {
     margin-bottom: 20px;
     font-size: 28px;
+    color: #111827;
 }
 
 h3 {
@@ -148,31 +157,35 @@ p {
     border-radius: 12px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.05);
     transition: 0.3s;
+    border: 1px solid #f0f0f0;
 }
 
 .card:hover {
     transform: translateY(-8px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
 }
 
 /* ============================= */
-/* 7. RESPONSIVE TABLES */
+/* 7. RESPONSIVE TABLES (Your Improvement Included) */
 /* ============================= */
 
 .table-container {
     overflow-x: auto;
     margin: 40px 0;
     border-radius: 10px;
+    background: white;
+    -webkit-overflow-scrolling: touch; /* تمرير سلس جداً على الآيفون */
+    box-shadow: inset -10px 0 10px -10px rgba(0,0,0,0.1); /* ظل يشير لوجود محتوى مخفي */
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-    background: white;
     min-width: 600px;
 }
 
 th, td {
-    padding: 16px;
+    padding: 18px;
     border-bottom: 1px solid #e5e7eb;
     text-align: center;
 }
@@ -181,10 +194,12 @@ th {
     background: #111827;
     color: white;
     font-weight: 600;
+    text-transform: uppercase;
+    font-size: 14px;
 }
 
 tr:hover {
-    background-color: #f3f4f6;
+    background-color: #f9fafb;
 }
 
 /* ============================= */
@@ -231,14 +246,22 @@ footer {
 /* ============================= */
 
 @media (max-width: 768px) {
-
     .hero h1 {
-        font-size: 28px;
+        font-size: 30px;
+    }
+
+    .hero p {
+        font-size: 16px;
     }
 
     .card-container {
         flex-direction: column;
         align-items: center;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 350px;
     }
 
     .footer-container {
