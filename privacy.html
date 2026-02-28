@@ -1,51 +1,154 @@
-<section>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --accent-color: #3498db;
+            --text-color: #444;
+            --bg-color: #f9f9f9;
+            --card-bg: #ffffff;
+        }
 
-  <p>
-  At Affiliate24, we value your privacy and are committed to protecting your personal information.
-  This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website.
-  </p>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 40px 20px;
+        }
 
-  <h2>Information We Collect</h2>
-  <p>
-  We do not collect personally identifiable information unless you voluntarily contact us.
-  However, we may collect non-personal data such as browser type, device information, and usage statistics.
-  </p>
+        .privacy-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
 
-  <h2>Cookies</h2>
-  <p>
-  Our website may use cookies and similar tracking technologies to improve user experience,
-  analyze traffic, and track affiliate referrals. You can disable cookies in your browser settings.
-  </p>
+        h1 {
+            color: var(--primary-color);
+            border-bottom: 3px solid var(--accent-color);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            font-size: 2rem;
+        }
 
-  <h2>Affiliate Disclosure</h2>
-  <p>
-  Some of the links on this website are affiliate links.
-  This means we may earn a small commission at no additional cost to you if you make a purchase through those links.
-  This helps us maintain the website and continue providing unbiased reviews.
-  </p>
+        h2 {
+            color: var(--primary-color);
+            margin-top: 30px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+        }
 
-  <h2>Third-Party Services</h2>
-  <p>
-  We may use third-party services such as analytics tools and affiliate programs.
-  These third parties may collect information in accordance with their own privacy policies.
-  </p>
+        h2::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            display: inline-block; 
+            width: 1em;
+            margin-left: -1em;
+        }
 
-  <h2>Data Security</h2>
-  <p>
-  We implement reasonable security measures to protect your information.
-  However, no method of transmission over the Internet is 100% secure.
-  </p>
+        p {
+            margin-bottom: 20px;
+            text-align: justify;
+        }
 
-  <h2>Your Rights</h2>
-  <p>
-  Depending on your location, you may have rights under data protection laws
-  to request access, correction, or deletion of your personal data.
-  </p>
+        .highlight-box {
+            background-color: #e8f4fd;
+            border-left: 5px solid var(--accent-color);
+            padding: 15px 20px;
+            margin: 25px 0;
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
 
-  <h2>Contact</h2>
-  <p>
-  If you have any questions about this Privacy Policy,
-  please contact us at contact@affiliate24.site.
-  </p>
+        .contact-info {
+            background: #f1f1f1;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 40px;
+            text-align: center;
+        }
 
-</section>
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .last-updated {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 20px 10px; }
+            .privacy-container { padding: 20px; }
+        }
+    </style>
+    <title>Privacy Policy - Affiliate24</title>
+</head>
+<body>
+
+<div class="privacy-container">
+    <p class="last-updated">Last Updated: February 2026</p>
+    <h1>Privacy Policy</h1>
+    
+    <p>
+        At <strong>Affiliate24</strong>, we value your privacy and are committed to protecting your personal information. 
+        This Privacy Policy explains how we collect, use, and safeguard your information when you visit our website.
+    </p>
+
+    <h2>Information We Collect</h2>
+    <p>
+        We do not collect personally identifiable information unless you voluntarily contact us. 
+        However, we may collect non-personal data such as browser type, device information, and usage statistics to improve our services.
+    </p>
+
+    <h2>Cookies</h2>
+    <p>
+        Our website may use cookies and similar tracking technologies to improve user experience, 
+        analyze traffic, and track affiliate referrals. You can disable cookies at any time through your individual browser settings.
+    </p>
+
+    <div class="highlight-box">
+        <strong>Affiliate Disclosure:</strong> Some of the links on this website are affiliate links. 
+        This means we may earn a small commission at no additional cost to you if you make a purchase through those links. 
+        This helps us maintain the website and continue providing unbiased reviews.
+    </div>
+
+    <h2>Third-Party Services</h2>
+    <p>
+        We may use third-party services such as Google Analytics and various affiliate programs. 
+        These third parties may collect information in accordance with their own specific privacy policies.
+    </p>
+
+    <h2>Data Security</h2>
+    <p>
+        We implement reasonable security measures to protect your information. 
+        However, please be aware that no method of transmission over the Internet is 100% secure.
+    </p>
+
+    <h2>Your Rights</h2>
+    <p>
+        Depending on your location (such as the EU under GDPR), you may have rights under data protection laws 
+        to request access, correction, or deletion of your personal data.
+    </p>
+
+    <div class="contact-info">
+        <h2>Contact Us</h2>
+        <p>If you have any questions about this Privacy Policy, please reach out to us:</p>
+        <a href="mailto:contact@affiliate24.site">contact@affiliate24.site</a>
+    </div>
+</div>
+
+</body>
+</html>
