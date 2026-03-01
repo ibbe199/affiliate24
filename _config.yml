@@ -3,3 +3,5 @@ description: My Affiliate Website
 theme: minima
 baseurl: ""
 url: ""
+include:
+  - best-ai-for-marketing.html
